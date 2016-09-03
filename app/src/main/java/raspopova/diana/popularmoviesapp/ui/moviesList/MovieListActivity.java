@@ -1,0 +1,112 @@
+package raspopova.diana.popularmoviesapp.ui.moviesList;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.GridView;
+import android.widget.RelativeLayout;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import raspopova.diana.popularmoviesapp.GeneralActivity;
+import raspopova.diana.popularmoviesapp.R;
+import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
+
+/**
+ * Created by Diana on 8/30/2016.
+ */
+public class MovieListActivity extends GeneralActivity implements MovieView {
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.progressLayout)
+    RelativeLayout progressLayout;
+
+    @BindView(R.id.moviesGridView)
+    GridView movieGridView;
+
+
+    private MoviePresenter presenter;
+    private MovieGridAdapter adapter;
+    boolean loadingMore = false;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_movies_list);
+        ButterKnife.bind(this);
+
+        presenter = new MoviePresenterImpl();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.onAttacheView(this);
+        presenter.initialize();
+        movieGridView.setOnScrollListener(listener);
+    }
+
+    @Override
+    protected void onStop() {
+        presenter.onDetachView();
+        super.onStop();
+    }
+
+    @Override
+    public void fillMovieGrid(List<movieObject> result) {
+        int currentPosition = movieGridView.getFirstVisiblePosition();
+
+        adapter = new MovieGridAdapter(this, result);
+        movieGridView.setAdapter(adapter);
+
+        movieGridView.setSelection(currentPosition + 1);
+        loadingMore = false;
+    }
+
+    @Override
+    public void showProgress() {
+        progressLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError(String error, int... code) {
+        showErrorSnack(error, coordinatorLayout);
+    }
+
+    @Override
+    public void showError(int error, int... code) {
+        showErrorSnack(getString(error), coordinatorLayout);
+
+    }
+
+
+    AbsListView.OnScrollListener listener = new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            int lastInScreen = firstVisibleItem + visibleItemCount;
+            if ((lastInScreen == totalItemCount) && !(loadingMore)) {
+                loadingMore = true;
+                presenter.getNewMoviePage();
+            }
+        }
+    };
+}
