@@ -11,4 +11,6 @@ import raspopova.diana.popularmoviesapp.ui.IGeneralView;
 public interface MovieView extends IGeneralView {
 
     void fillMovieGrid(List<movieObject> result);
+
+    void showMovieDetails(movieObject item);
 }

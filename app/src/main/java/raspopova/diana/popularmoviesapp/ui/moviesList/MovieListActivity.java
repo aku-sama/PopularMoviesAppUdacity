@@ -1,5 +1,6 @@
 package raspopova.diana.popularmoviesapp.ui.moviesList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 
@@ -17,6 +19,7 @@ import butterknife.ButterKnife;
 import raspopova.diana.popularmoviesapp.GeneralActivity;
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
+import raspopova.diana.popularmoviesapp.ui.moviDetails.MovieDetailsActivity;
 
 /**
  * Created by Diana on 8/30/2016.
@@ -53,6 +56,7 @@ public class MovieListActivity extends GeneralActivity implements MovieView {
         presenter.onAttacheView(this);
         presenter.initialize();
         movieGridView.setOnScrollListener(listener);
+        movieGridView.setOnItemClickListener(clickListener);
     }
 
     @Override
@@ -70,6 +74,13 @@ public class MovieListActivity extends GeneralActivity implements MovieView {
 
         movieGridView.setSelection(currentPosition + 1);
         loadingMore = false;
+    }
+
+    @Override
+    public void showMovieDetails(movieObject item) {
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.putExtra("movie", item);
+        startActivity(intent);
     }
 
     @Override
@@ -107,6 +118,13 @@ public class MovieListActivity extends GeneralActivity implements MovieView {
                 loadingMore = true;
                 presenter.getNewMoviePage();
             }
+        }
+    };
+
+    AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            presenter.onMoviePreviewClick(position);
         }
     };
 }

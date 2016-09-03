@@ -2,6 +2,7 @@ package raspopova.diana.popularmoviesapp.reposytory.dataModel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import raspopova.diana.popularmoviesapp.reposytory.server.Urls;
 /**
  * Created by Diana on 9/3/2016.
  */
-public class movieObject {
+public class movieObject implements Serializable {
 
     @SerializedName("adult")
     private boolean adult;

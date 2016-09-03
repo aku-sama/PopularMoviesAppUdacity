@@ -12,4 +12,6 @@ public interface MoviePresenter extends IGeneralPresenter {
     void initialize();
 
     void getNewMoviePage();
+
+    void onMoviePreviewClick(int position);
 }

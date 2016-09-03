@@ -52,6 +52,13 @@ public class MoviePresenterImpl implements MoviePresenter, MovieInteractor.onMov
     }
 
     @Override
+    public void onMoviePreviewClick(int position) {
+        if(view!=null){
+            view.showMovieDetails(movieList.get(position));
+        }
+    }
+
+    @Override
     public void onSuccess(movieListObject result) {
         if (view != null) {
             view.hideProgress();
