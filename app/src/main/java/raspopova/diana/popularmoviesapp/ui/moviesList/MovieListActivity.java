@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -20,6 +23,7 @@ import raspopova.diana.popularmoviesapp.GeneralActivity;
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
 import raspopova.diana.popularmoviesapp.ui.moviDetails.MovieDetailsActivity;
+import raspopova.diana.popularmoviesapp.ui.settings.SettingsActivity;
 
 /**
  * Created by Diana on 8/30/2016.
@@ -48,6 +52,25 @@ public class MovieListActivity extends GeneralActivity implements MovieView {
         ButterKnife.bind(this);
 
         presenter = new MoviePresenterImpl();
+        setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(SettingsActivity.class);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -58,6 +81,7 @@ public class MovieListActivity extends GeneralActivity implements MovieView {
         movieGridView.setOnScrollListener(listener);
         movieGridView.setOnItemClickListener(clickListener);
     }
+
 
     @Override
     protected void onStop() {
@@ -127,4 +151,6 @@ public class MovieListActivity extends GeneralActivity implements MovieView {
             presenter.onMoviePreviewClick(position);
         }
     };
+
+
 }

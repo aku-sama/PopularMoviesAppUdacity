@@ -1,9 +1,13 @@
 package raspopova.diana.popularmoviesapp.ui.moviesList;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import raspopova.diana.popularmoviesapp.R;
+import raspopova.diana.popularmoviesapp.app.MovieApplication;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieListObject;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
 
@@ -17,13 +21,18 @@ public class MoviePresenterImpl implements MoviePresenter, MovieInteractor.onMov
     private MovieView view;
 
     private long currentPage = 1;
-    private long endPage = 1;
+    private long endPage = 2;
     private List<movieObject> movieList;
+    private String currentOrdering = "0";
 
 
     public MoviePresenterImpl() {
         interactor = new MovieInteractorImpl();
         movieList = new ArrayList<>();
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(MovieApplication.getInstance());
+        currentOrdering = pref.getString(MovieApplication.getInstance().getString(R.string.pref_sort_key),
+                MovieApplication.getInstance().getString(R.string.pref_default_value));
     }
 
     @Override
@@ -35,7 +44,24 @@ public class MoviePresenterImpl implements MoviePresenter, MovieInteractor.onMov
     public void initialize() {
         if (view != null) {
             view.showProgress();
-            interactor.getPopularMovie(currentPage, this);
+            //check ordering change
+            SharedPreferences pref = PreferenceManager
+                    .getDefaultSharedPreferences(MovieApplication.getInstance());
+            String sortOrder = pref.getString(MovieApplication.getInstance().getString(R.string.pref_sort_key),
+                    MovieApplication.getInstance().getString(R.string.pref_default_value));
+
+            //if order was changed, reset list
+            if (!currentOrdering.equals(sortOrder)) {
+                movieList.clear();
+                currentPage = 1;
+                endPage = 2;
+                currentOrdering = sortOrder;
+            }
+
+            if (currentOrdering.equals("0"))
+                interactor.getPopularMovie(currentPage, this);
+            else
+                interactor.getTopRatedMovie(currentPage, this);
         }
     }
 
@@ -44,7 +70,12 @@ public class MoviePresenterImpl implements MoviePresenter, MovieInteractor.onMov
         if (view != null) {
             if (currentPage < endPage) {
                 view.showProgress();
-                interactor.getPopularMovie(currentPage + 1, this);
+
+                if (currentOrdering.equals("0"))
+                    interactor.getPopularMovie(currentPage + 1, this);
+                else
+                    interactor.getTopRatedMovie(currentPage + 1, this);
+
             } else {
                 view.showError(R.string.no_more_pages);
             }
@@ -53,7 +84,7 @@ public class MoviePresenterImpl implements MoviePresenter, MovieInteractor.onMov
 
     @Override
     public void onMoviePreviewClick(int position) {
-        if(view!=null){
+        if (view != null) {
             view.showMovieDetails(movieList.get(position));
         }
     }
