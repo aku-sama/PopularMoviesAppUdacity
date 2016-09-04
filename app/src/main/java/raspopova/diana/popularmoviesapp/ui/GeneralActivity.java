@@ -1,4 +1,4 @@
-package raspopova.diana.popularmoviesapp;
+package raspopova.diana.popularmoviesapp.ui;
 
 import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
@@ -6,6 +6,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import raspopova.diana.popularmoviesapp.R;
 
 /**
  * Created by Diana on 9/3/2016.
@@ -38,7 +40,7 @@ public class GeneralActivity extends AppCompatActivity {
         // Change background color
         snackbar.getView().setBackgroundColor(getResources().getColor(R.color.white));
         // Changing action button text color
-        snackbar.setActionTextColor(getResources().getColor(R.color.colorAccent));
+        snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
 
         // Changing message text color
         View sbView = snackbar.getView();

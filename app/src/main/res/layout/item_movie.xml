@@ -2,14 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:padding="2dp">
 
     <ImageView
         android:id="@+id/imagePoster"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray"
-        android:minHeight="150dp"
+        android:minHeight="@dimen/poster_height"
         android:scaleType="centerCrop"/>
 
     <TextView
@@ -17,15 +18,23 @@
         style="@style/MovieItemText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/text_top_gradient"
+        android:drawableLeft="@mipmap/ic_grade_white_24dp"
+        android:drawablePadding="@dimen/dimen_4"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dimen_8"
+        android:text="@string/rating_default"/>
+
+    <TextView
+        android:id="@+id/textMovieTitle"
+        style="@style/MovieItemText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:background="@drawable/text_gradient"
-        android:drawablePadding="@dimen/dimen_8"
-        android:drawableRight="@mipmap/ic_grade_white_24dp"
-        android:gravity="right|center_vertical"
         android:paddingBottom="@dimen/dimen_8"
         android:paddingLeft="@dimen/dimen_8"
         android:paddingRight="@dimen/dimen_8"
-        android:paddingTop="@dimen/dimen_8"
-        tools:text="7.7"/>
+        android:paddingTop="@dimen/dimen_16"
+        tools:text="movie title"/>
 </RelativeLayout>

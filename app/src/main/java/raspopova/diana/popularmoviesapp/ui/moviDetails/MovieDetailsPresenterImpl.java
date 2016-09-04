@@ -1,6 +1,10 @@
 package raspopova.diana.popularmoviesapp.ui.moviDetails;
 
+import android.content.res.Resources;
+
+import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.app.Config;
+import raspopova.diana.popularmoviesapp.app.MovieApplication;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
 
 /**
@@ -23,10 +27,11 @@ public class MovieDetailsPresenterImpl implements MovieDetailsPresenter {
     @Override
     public void initialize() {
         if (view != null) {
+            Resources res = MovieApplication.getInstance().getResources();
             String title = movie.getTitle();
-            String date = movie.getReleaseDate();
+            String date = String.format(res.getString(R.string.release_date), movie.getReleaseDate());
             String url = movie.getPosterPath();
-            String rating = Config.ratingFormat.format(movie.getVoteAverage());
+            String rating = String.format(res.getString(R.string.rating), Config.ratingFormat.format(movie.getVoteAverage()));
 
             view.fillHeader(url, title, rating, date);
 

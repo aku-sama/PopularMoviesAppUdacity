@@ -59,6 +59,7 @@ public class MovieGridAdapter extends BaseAdapter {
 
             viewHolder.posterImage = (ImageView)vi.findViewById(R.id.imagePoster);
             viewHolder.ratingText = (TextView)vi.findViewById(R.id.textRating);
+            viewHolder.titleText = (TextView)vi.findViewById(R.id.textMovieTitle);
             vi.setTag(viewHolder);
 
         } else {
@@ -67,6 +68,7 @@ public class MovieGridAdapter extends BaseAdapter {
 
         Glide.with(context).load(items.get(position).getPosterPathForPreview()).into(viewHolder.posterImage);
         viewHolder.ratingText.setText(Config.ratingFormat.format(items.get(position).getVoteAverage()));
+        viewHolder.titleText.setText(items.get(position).getTitle());
 
         return vi;
 
@@ -75,5 +77,6 @@ public class MovieGridAdapter extends BaseAdapter {
     static class ViewHolder {
         ImageView posterImage;
         TextView ratingText;
+        TextView titleText;
     }
 }

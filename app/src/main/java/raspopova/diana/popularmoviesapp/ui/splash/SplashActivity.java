@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.Window;
 import android.view.WindowManager;
 
-import raspopova.diana.popularmoviesapp.GeneralActivity;
+import raspopova.diana.popularmoviesapp.ui.GeneralActivity;
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.ui.moviesList.MovieListActivity;
 

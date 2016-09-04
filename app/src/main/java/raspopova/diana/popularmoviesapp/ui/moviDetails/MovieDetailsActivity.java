@@ -4,11 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,12 +12,12 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import raspopova.diana.popularmoviesapp.GeneralActivity;
+import butterknife.OnClick;
+import raspopova.diana.popularmoviesapp.ui.GeneralActivity;
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.customControls.TopCroppedImageView;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
 import raspopova.diana.popularmoviesapp.ui.posterView.PosterViewActivity;
-import raspopova.diana.popularmoviesapp.ui.settings.SettingsActivity;
 
 /**
  * Created by Diana on 8/30/2016.
@@ -48,6 +44,12 @@ public class MovieDetailsActivity extends GeneralActivity implements MovieDetail
     @BindView(R.id.textOverview)
     TextView overviewText;
 
+    @BindView(R.id.imageViewPoster)
+    ImageView posterViewImage;
+
+    @BindView(R.id.imageBackButton)
+    ImageView backButtonImage;
+
     private movieObject movie;
     private MovieDetailsPresenter presenter;
 
@@ -63,27 +65,19 @@ public class MovieDetailsActivity extends GeneralActivity implements MovieDetail
         presenter = new MovieDetailsPresenterImpl(movie);
 
         setSupportActionBar(toolbar);
-        setTitle(movie.getTitle());
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_details, menu);
-        return true;
+    @OnClick(R.id.imageBackButton)
+    void onBackClick() {
+        onBackPressed();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_view:
-                Intent intent = new Intent(this, PosterViewActivity.class);
-                intent.putExtra("poster", movie.getPosterPath());
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    @OnClick(R.id.imageViewPoster)
+    void onPosterView() {
+        Intent intent = new Intent(this, PosterViewActivity.class);
+        intent.putExtra("poster", movie.getPosterPath());
+        startActivity(intent);
     }
 
     @Override
