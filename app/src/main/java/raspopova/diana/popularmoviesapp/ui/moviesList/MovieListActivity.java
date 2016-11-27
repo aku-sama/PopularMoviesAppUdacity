@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import raspopova.diana.popularmoviesapp.app.BundleConfig;
 import raspopova.diana.popularmoviesapp.ui.GeneralActivity;
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
@@ -101,7 +102,7 @@ public class MovieListActivity extends GeneralActivity implements IMovieView {
     @Override
     public void showMovieDetails(movieObject item) {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
-        intent.putExtra("movie", item);
+        intent.putExtra(BundleConfig.MOVIE, item);
         startActivity(intent);
     }
 

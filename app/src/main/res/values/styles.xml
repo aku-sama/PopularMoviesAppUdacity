@@ -67,4 +67,14 @@
     <style name="HeadlineText" parent="Base.TextAppearance.AppCompat.Headline">
         <item name="android:textColor">@color/secondary_text</item>
     </style>
+
+    <style name="ReviewHeader" parent="Base.TextAppearance.AppCompat.Title">
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="ReviewContent" parent="Base.TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/secondary_text</item>
+    </style>
 </resources>

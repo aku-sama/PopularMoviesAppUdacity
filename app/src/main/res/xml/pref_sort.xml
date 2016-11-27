@@ -7,4 +7,12 @@
         android:key="@string/pref_sort_key"
         android:summary="@string/pref_sorting_summary"
         android:title="@string/pref_sorting_title"/>
+
+    <ListPreference
+        android:defaultValue="@string/pref_language_default_value"
+        android:entries="@array/pref_language_names"
+        android:entryValues="@array/pref_language_values"
+        android:key="@string/pref_language_key"
+        android:summary="@string/pref_language_summary"
+        android:title="@string/pref_language_title"/>
 </PreferenceScreen>

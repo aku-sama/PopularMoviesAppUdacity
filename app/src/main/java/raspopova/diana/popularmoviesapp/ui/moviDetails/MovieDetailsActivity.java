@@ -18,6 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import raspopova.diana.popularmoviesapp.app.BundleConfig;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerObject;
 import raspopova.diana.popularmoviesapp.ui.GeneralActivity;
 import raspopova.diana.popularmoviesapp.R;
@@ -31,7 +32,6 @@ import raspopova.diana.popularmoviesapp.ui.reviews.ReviewsActivity;
  */
 public class MovieDetailsActivity extends GeneralActivity implements IMovieDetailsView {
 
-    public static final String MOVIE = "movie";
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
     @BindView(R.id.toolbar)
@@ -78,12 +78,17 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
         ButterKnife.bind(this);
 
         if (getIntent().getExtras() != null) {
-            movie = (movieObject) getIntent().getSerializableExtra(MOVIE);
+            movie = (movieObject) getIntent().getSerializableExtra(BundleConfig.MOVIE);
         }
         presenter = new MovieDetailsPresenter();
 
-        setSupportActionBar(toolbar);
+        setToolbar();
 
+    }
+
+
+    private void setToolbar() {
+        setSupportActionBar(toolbar);
     }
 
     @OnClick(R.id.imageBackButton)
@@ -101,13 +106,13 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(MOVIE, movie);
+        outState.putSerializable(BundleConfig.MOVIE, movie);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        movie = (movieObject) savedInstanceState.getSerializable(MOVIE);
+        movie = (movieObject) savedInstanceState.getSerializable(BundleConfig.MOVIE);
     }
 
     @Override
@@ -171,7 +176,9 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
 
     @OnClick(R.id.reviewText)
     void onReviewsClick() {
-        startActivity(ReviewsActivity.class);
+        Intent intent = new Intent(this, ReviewsActivity.class);
+        intent.putExtra(BundleConfig.MOVIE_ID, String.valueOf(movie.getId()));
+        startActivity(intent);
     }
 
 }
