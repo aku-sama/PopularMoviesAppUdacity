@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:paddingBottom="@dimen/dimen_8"
+                android:paddingTop="@dimen/dimen_8">
+
+    <TextView
+        android:id="@+id/trailerNameText"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:background="@color/divider"
+        android:drawableRight="@drawable/ic_play"
+        android:drawableEnd="@drawable/ic_play"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dimen_8"
+        tools:text="trailer sample"/>
+
+</RelativeLayout>

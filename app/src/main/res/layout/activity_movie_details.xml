@@ -54,6 +54,7 @@
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
                         android:layout_marginTop="@dimen/dimen_16"
                         android:src="@mipmap/ic_collections_white_24dp"/>
+
                     <ImageView
                         android:id="@+id/imageBackButton"
                         android:layout_width="wrap_content"
@@ -61,6 +62,7 @@
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginTop="@dimen/dimen_16"
                         android:src="@mipmap/ic_arrow_back_white_24dp"/>
+
                     <TextView
                         android:id="@+id/textMovieTitle"
                         style="@style/TitleText"
@@ -113,9 +115,49 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
-            android:id="@+id/textOverview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textOverview"
+                style="@style/PrimaryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="aevevteeavevtestvat vq4t34"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginBottom="@dimen/dimen_16"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:background="@color/divider"/>
+
+            <TextView
+                android:id="@+id/reviewText"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:background="@color/primary"
+                android:drawableRight="@drawable/ic_next"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dimen_8"
+                android:text="@string/review_count"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/trailerList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="	android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_trailer">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressView"
+        android:layout_width="@dimen/progress_size"
+        android:layout_height="@dimen/progress_size"
+        android:layout_gravity="bottom"
+        android:visibility="gone"/>
 </android.support.design.widget.CoordinatorLayout>

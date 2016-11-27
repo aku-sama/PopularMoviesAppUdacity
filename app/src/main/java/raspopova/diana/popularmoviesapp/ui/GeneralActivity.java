@@ -38,14 +38,14 @@ public class GeneralActivity extends AppCompatActivity {
                 });
 
         // Change background color
-        snackbar.getView().setBackgroundColor(getResources().getColor(R.color.white));
+        snackbar.getView().setBackgroundColor(getResources().getColor(R.color.primary_dark));
         // Changing action button text color
-        snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
+        snackbar.setActionTextColor(getResources().getColor(R.color.accent));
 
         // Changing message text color
         View sbView = snackbar.getView();
         TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        textView.setTextColor(getResources().getColor(R.color.white));
         textView.setMaxLines(4);
         snackbar.show();
     }

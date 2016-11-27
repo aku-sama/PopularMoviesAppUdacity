@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import raspopova.diana.popularmoviesapp.R;
@@ -25,10 +26,17 @@ public class MovieGridAdapter extends BaseAdapter {
     private List<movieObject> items;
     private static LayoutInflater inflater = null;
 
-    public MovieGridAdapter(Context context, List<movieObject> items) {
+    public MovieGridAdapter(Context context) {
         this.context = context;
-        this.items = items;
-        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.items = new ArrayList<>();
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public void setData(List<movieObject> items) {
+
+        this.items = new ArrayList<>(items);
+        notifyDataSetChanged();
+
     }
 
     @Override
@@ -52,14 +60,14 @@ public class MovieGridAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         View vi = convertView;
 
-        if(convertView == null) {
+        if (convertView == null) {
             vi = inflater.inflate(R.layout.item_movie, null);
 
             viewHolder = new ViewHolder();
 
-            viewHolder.posterImage = (ImageView)vi.findViewById(R.id.imagePoster);
-            viewHolder.ratingText = (TextView)vi.findViewById(R.id.textRating);
-            viewHolder.titleText = (TextView)vi.findViewById(R.id.textMovieTitle);
+            viewHolder.posterImage = (ImageView) vi.findViewById(R.id.imagePoster);
+            viewHolder.ratingText = (TextView) vi.findViewById(R.id.textRating);
+            viewHolder.titleText = (TextView) vi.findViewById(R.id.textMovieTitle);
             vi.setTag(viewHolder);
 
         } else {

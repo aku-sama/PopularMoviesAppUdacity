@@ -7,5 +7,5 @@ import java.text.DecimalFormat;
  */
 public class Config {
 
-    public static final DecimalFormat ratingFormat = new DecimalFormat("#.##");
+    public static final DecimalFormat ratingFormat = new DecimalFormat("0.00");
 }

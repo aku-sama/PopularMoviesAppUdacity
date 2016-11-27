@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
@@ -23,11 +22,12 @@ import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
 import raspopova.diana.popularmoviesapp.ui.moviDetails.MovieDetailsActivity;
 import raspopova.diana.popularmoviesapp.ui.settings.SettingsActivity;
+import raspopova.diana.popularmoviesapp.utils.EndlessGridOnScrollListener;
 
 /**
  * Created by Diana on 8/30/2016.
  */
-public class MovieListActivity extends GeneralActivity implements MovieView {
+public class MovieListActivity extends GeneralActivity implements IMovieView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -40,9 +40,8 @@ public class MovieListActivity extends GeneralActivity implements MovieView {
     GridView movieGridView;
 
 
-    private MoviePresenter presenter;
+    private IMoviePresenter presenter;
     private MovieGridAdapter adapter;
-    boolean loadingMore = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,8 +49,13 @@ public class MovieListActivity extends GeneralActivity implements MovieView {
         setContentView(R.layout.activity_movies_list);
         ButterKnife.bind(this);
 
-        presenter = new MoviePresenterImpl();
+        adapter = new MovieGridAdapter(this);
+        movieGridView.setAdapter(adapter);
+
+        presenter = new MoviePresenter();
         setSupportActionBar(toolbar);
+
+
     }
 
     @Override
@@ -79,6 +83,7 @@ public class MovieListActivity extends GeneralActivity implements MovieView {
         presenter.initialize();
         movieGridView.setOnScrollListener(listener);
         movieGridView.setOnItemClickListener(clickListener);
+
     }
 
 
@@ -90,13 +95,7 @@ public class MovieListActivity extends GeneralActivity implements MovieView {
 
     @Override
     public void fillMovieGrid(List<movieObject> result) {
-        int currentPosition = movieGridView.getFirstVisiblePosition();
-
-        adapter = new MovieGridAdapter(this, result);
-        movieGridView.setAdapter(adapter);
-
-        movieGridView.setSelection(currentPosition + 1);
-        loadingMore = false;
+        adapter.setData(result);
     }
 
     @Override
@@ -127,22 +126,14 @@ public class MovieListActivity extends GeneralActivity implements MovieView {
 
     }
 
-
-    AbsListView.OnScrollListener listener = new AbsListView.OnScrollListener() {
+    EndlessGridOnScrollListener listener = new EndlessGridOnScrollListener() {
         @Override
-        public void onScrollStateChanged(AbsListView view, int scrollState) {
+        public void onLoadMore(int current_page) {
+            presenter.getNewMoviePage(current_page);
 
-        }
-
-        @Override
-        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            int lastInScreen = firstVisibleItem + visibleItemCount;
-            if ((lastInScreen == totalItemCount) && !(loadingMore)) {
-                loadingMore = true;
-                presenter.getNewMoviePage();
-            }
         }
     };
+
 
     AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
         @Override

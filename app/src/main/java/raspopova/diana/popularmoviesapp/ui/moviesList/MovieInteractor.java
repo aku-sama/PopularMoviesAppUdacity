@@ -1,21 +1,20 @@
 package raspopova.diana.popularmoviesapp.ui.moviesList;
 
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieListObject;
+import raspopova.diana.popularmoviesapp.reposytory.Repository;
 
 /**
  * Created by Diana on 9/3/2016.
  */
-public interface MovieInteractor {
 
-    interface onMovieGetListener {
-        void onSuccess(movieListObject result);
+public class MovieInteractor implements IMovieInteractor {
 
-        void onError(String error, int... code);
-
-        void onError(int error, int... code);
+    @Override
+    public void getTopRatedMovie(long page, onMovieGetListener listener) {
+        Repository.getTopRatedMovie(page, listener);
     }
 
-    void getTopRatedMovie(long page, onMovieGetListener listener);
-
-    void getPopularMovie(long page, onMovieGetListener listener);
+    @Override
+    public void getPopularMovie(long page, onMovieGetListener listener) {
+        Repository.getPopularMovie(page, listener);
+    }
 }

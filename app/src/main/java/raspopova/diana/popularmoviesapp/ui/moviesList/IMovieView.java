@@ -8,7 +8,7 @@ import raspopova.diana.popularmoviesapp.ui.IGeneralView;
 /**
  * Created by Diana on 9/3/2016.
  */
-public interface MovieView extends IGeneralView {
+public interface IMovieView extends IGeneralView {
 
     void fillMovieGrid(List<movieObject> result);
 

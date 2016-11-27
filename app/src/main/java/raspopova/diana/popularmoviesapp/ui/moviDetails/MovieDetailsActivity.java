@@ -4,26 +4,34 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerObject;
 import raspopova.diana.popularmoviesapp.ui.GeneralActivity;
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.customControls.TopCroppedImageView;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
 import raspopova.diana.popularmoviesapp.ui.posterView.PosterViewActivity;
+import raspopova.diana.popularmoviesapp.ui.reviews.ReviewsActivity;
 
 /**
  * Created by Diana on 8/30/2016.
  */
-public class MovieDetailsActivity extends GeneralActivity implements MovieDetailsView {
+public class MovieDetailsActivity extends GeneralActivity implements IMovieDetailsView {
 
+    public static final String MOVIE = "movie";
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
     @BindView(R.id.toolbar)
@@ -50,8 +58,18 @@ public class MovieDetailsActivity extends GeneralActivity implements MovieDetail
     @BindView(R.id.imageBackButton)
     ImageView backButtonImage;
 
+    @BindView(R.id.reviewText)
+    TextView reviewText;
+
+    @BindView(R.id.trailerList)
+    RecyclerView trailerList;
+
+    @BindView(R.id.progressView)
+    ProgressBar progressView;
+
     private movieObject movie;
-    private MovieDetailsPresenter presenter;
+    private IMovieDetailsPresenter presenter;
+    private MovieDetailsAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,9 +78,9 @@ public class MovieDetailsActivity extends GeneralActivity implements MovieDetail
         ButterKnife.bind(this);
 
         if (getIntent().getExtras() != null) {
-            movie = (movieObject) getIntent().getSerializableExtra("movie");
+            movie = (movieObject) getIntent().getSerializableExtra(MOVIE);
         }
-        presenter = new MovieDetailsPresenterImpl(movie);
+        presenter = new MovieDetailsPresenter();
 
         setSupportActionBar(toolbar);
 
@@ -81,10 +99,23 @@ public class MovieDetailsActivity extends GeneralActivity implements MovieDetail
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(MOVIE, movie);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        movie = (movieObject) savedInstanceState.getSerializable(MOVIE);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         presenter.onAttacheView(this);
-        presenter.initialize();
+        if (movie != null)
+            presenter.initialize(movie);
     }
 
     @Override
@@ -92,6 +123,7 @@ public class MovieDetailsActivity extends GeneralActivity implements MovieDetail
         presenter.onDetachView();
         super.onStop();
     }
+
 
     @Override
     public void fillHeader(String posterUrl, String title, String rating, String releaseDate) {
@@ -107,13 +139,24 @@ public class MovieDetailsActivity extends GeneralActivity implements MovieDetail
     }
 
     @Override
-    public void showProgress() {
+    public void fillReviewCount(String countText) {
+        reviewText.setText(countText);
+    }
 
+    @Override
+    public void fillTrailerList(List<trailerObject> list) {
+        adapter = new MovieDetailsAdapter(list, this);
+        trailerList.setAdapter(adapter);
+    }
+
+    @Override
+    public void showProgress() {
+        progressView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        progressView.setVisibility(View.GONE);
     }
 
     @Override
@@ -125,4 +168,10 @@ public class MovieDetailsActivity extends GeneralActivity implements MovieDetail
     public void showError(int error, int... code) {
         showErrorSnack(getString(error), coordinatorLayout);
     }
+
+    @OnClick(R.id.reviewText)
+    void onReviewsClick() {
+        startActivity(ReviewsActivity.class);
+    }
+
 }

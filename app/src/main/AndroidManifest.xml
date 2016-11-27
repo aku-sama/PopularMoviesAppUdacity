@@ -16,7 +16,7 @@
         <activity
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -35,6 +35,13 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity
+            android:name=".ui.reviews.ReviewsActivity"
+            android:parentActivityName=".ui.moviDetails.MovieDetailsActivity"
+            android:label="@string/title_activity_reviews"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
             android:name=".ui.settings.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".ui.moviesList.MovieListActivity"
@@ -42,9 +49,10 @@
             android:theme="@style/SettingsTheme">
         </activity>
 
-        <activity android:name=".ui.posterView.PosterViewActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".ui.posterView.PosterViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
 
 
     </application>
