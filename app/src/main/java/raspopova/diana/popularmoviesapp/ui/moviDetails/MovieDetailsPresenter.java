@@ -1,10 +1,15 @@
 package raspopova.diana.popularmoviesapp.ui.moviDetails;
 
+import android.content.ContentValues;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.util.Log;
 
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.app.Config;
 import raspopova.diana.popularmoviesapp.app.MovieApplication;
+import raspopova.diana.popularmoviesapp.reposytory.dataBase.FavouriteColumns;
+import raspopova.diana.popularmoviesapp.reposytory.dataBase.FavouriteProvider;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerListObject;
@@ -16,6 +21,8 @@ import raspopova.diana.popularmoviesapp.ui.reviews.ReviewsInteractor;
  */
 public class MovieDetailsPresenter implements IMovieDetailsPresenter, IMovieDetailsInteractor.onTrailersGetListener,
         IReviewsInteractor.onReviewsGetListener {
+
+    private final String LOG_TAG = "CURSOR";
 
     private IMovieDetailsView view;
     private IMovieDetailsInteractor interactor;
@@ -59,6 +66,30 @@ public class MovieDetailsPresenter implements IMovieDetailsPresenter, IMovieDeta
             //get trailer trailerList
             view.showProgress();
             interactor.getTrailers(String.valueOf(movie.getId()), this);
+
+            //check favourite status
+            view.changeFavouriteStatus(isFavourite());
+        }
+    }
+
+    @Override
+    public void changeFavouriteStatus() {
+        if (isFavourite())
+            removeFromFavourite();
+        else
+            insertToFavourite();
+
+    }
+
+    private boolean isFavourite() {
+        //check favourite status, if no in cursor = no in fav
+        Cursor c = MovieApplication.getInstance().getContentResolver().query(FavouriteProvider.Favourites.withId(movie.getId()),
+                null, null, null, null);
+        if (c == null || c.getCount() == 0) {
+            return false;
+        } else {
+            c.close();
+            return true;
         }
     }
 
@@ -100,6 +131,35 @@ public class MovieDetailsPresenter implements IMovieDetailsPresenter, IMovieDeta
         if (view != null) {
             view.hideProgress();
             view.showError(errorId, code);
+        }
+    }
+
+    private void insertToFavourite() {
+        Log.d(LOG_TAG, "insert");
+        ContentValues cv = new ContentValues();
+        cv.put(FavouriteColumns._ID, movie.getId());
+        cv.put(FavouriteColumns.OVERVIEW, movie.getOverview());
+        cv.put(FavouriteColumns.POSTER_PATH, movie.getPurePosterPah());
+        cv.put(FavouriteColumns.RELEASE_DATE, movie.getReleaseDate());
+        cv.put(FavouriteColumns.TITLE, movie.getTitle());
+        cv.put(FavouriteColumns.VOTE_AVERAGE, movie.getVoteAverage());
+        MovieApplication.getInstance().getContentResolver().delete(FavouriteProvider.Favourites.withId(movie.getId()),
+                null, null);
+        MovieApplication.getInstance().getContentResolver().insert(FavouriteProvider.Favourites.withId(movie.getId()), cv);
+        if (view != null) {
+            view.changeFavouriteStatus(true);
+        }
+
+    }
+
+    private void removeFromFavourite() {
+        Log.d(LOG_TAG, "delete");
+
+        MovieApplication.getInstance().getContentResolver().delete(FavouriteProvider.Favourites.withId(movie.getId()),
+                null, null);
+
+        if (view != null) {
+            view.changeFavouriteStatus(false);
         }
     }
 }

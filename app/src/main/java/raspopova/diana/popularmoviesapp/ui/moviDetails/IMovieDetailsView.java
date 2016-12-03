@@ -17,4 +17,6 @@ public interface IMovieDetailsView extends IGeneralView {
     void fillReviewCount(String countText);
 
     void fillTrailerList(List<trailerObject> list);
+
+    void changeFavouriteStatus(boolean isFavourite);
 }

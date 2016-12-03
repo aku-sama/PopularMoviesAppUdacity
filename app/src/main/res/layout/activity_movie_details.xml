@@ -8,6 +8,7 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -125,6 +126,7 @@
                 style="@style/PrimaryText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_48"
                 tools:text="aevevteeavevtestvat vq4t34"/>
 
             <View
@@ -153,6 +155,18 @@
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabFavourite"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_fav_active"
+        app:fabSize="normal"
+        app:layout_anchor="@id/appbarLayout"
+        app:layout_anchorGravity="bottom|right"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:layout_keyline="@android:integer/config_longAnimTime"
+        app:useCompatPadding="true"/>
 
     <ProgressBar
         android:id="@+id/progressView"

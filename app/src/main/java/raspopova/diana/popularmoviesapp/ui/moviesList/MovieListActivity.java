@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import java.util.List;
@@ -21,6 +22,7 @@ import raspopova.diana.popularmoviesapp.app.BundleConfig;
 import raspopova.diana.popularmoviesapp.ui.GeneralActivity;
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
+import raspopova.diana.popularmoviesapp.ui.favourites.FavouritesActivity;
 import raspopova.diana.popularmoviesapp.ui.moviDetails.MovieDetailsActivity;
 import raspopova.diana.popularmoviesapp.ui.settings.SettingsActivity;
 import raspopova.diana.popularmoviesapp.utils.EndlessGridOnScrollListener;
@@ -35,7 +37,7 @@ public class MovieListActivity extends GeneralActivity implements IMovieView {
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
     @BindView(R.id.progressLayout)
-    RelativeLayout progressLayout;
+    ProgressBar progressLayout;
 
     @BindView(R.id.moviesGridView)
     GridView movieGridView;
@@ -71,6 +73,9 @@ public class MovieListActivity extends GeneralActivity implements IMovieView {
         switch (item.getItemId()) {
             case R.id.action_settings:
                 startActivity(SettingsActivity.class);
+                return true;
+            case R.id.action_favourite:
+                startActivity(FavouritesActivity.class);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

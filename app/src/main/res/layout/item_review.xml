@@ -24,9 +24,10 @@
 
             <TextView
                 android:id="@+id/userNameText"
-                style="@style/ReviewHeader"
+                style="@style/ItemHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:drawableLeft="@drawable/ic_user"
                 android:drawablePadding="@dimen/dimen_8"
 
@@ -43,7 +44,7 @@
 
             <raspopova.diana.popularmoviesapp.customControls.ExpandableTextView
                 android:id="@+id/reviewContentText"
-                style="@style/ReviewContent"
+                style="@style/ItemContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/divider"

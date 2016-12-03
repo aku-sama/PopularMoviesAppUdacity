@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout android:id="@+id/coordinatorLayout"
-                                                 xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                  xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
                                                  android:layout_width="match_parent"
-                                                 android:layout_height="match_parent">
+                                                 android:layout_height="match_parent"
+                                                 android:id="@+id/coordinatorLayout"
+                                                 xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
-        android:id="@+id/emptyReviewsLayout"
+        android:id="@+id/emptyFavouritesLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -29,21 +29,20 @@
             android:layout_centerInParent="true"
             android:drawablePadding="@dimen/dimen_8"
             android:drawableTop="@drawable/ic_empty"
-            android:text="@string/reviews_empty"/>
+            android:text="@string/favourites_empty"/>
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/reviewList"
+        android:id="@+id/favouriteList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/item_review"/>
+        tools:listitem="@layout/item_favourite"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <ProgressBar
         android:id="@+id/progressView"
         android:layout_width="@dimen/progress_size"
         android:layout_height="@dimen/progress_size"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/dimen_40"
         android:visibility="gone"/>
 </android.support.design.widget.CoordinatorLayout>

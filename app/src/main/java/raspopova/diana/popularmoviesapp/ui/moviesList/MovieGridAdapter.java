@@ -1,6 +1,7 @@
 package raspopova.diana.popularmoviesapp.ui.moviesList;
 
 import android.content.Context;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,12 @@ public class MovieGridAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) vi.getTag();
         }
 
-        Glide.with(context).load(items.get(position).getPosterPathForPreview()).into(viewHolder.posterImage);
+        if (Patterns.WEB_URL.matcher(items.get(position).getPosterPathForPreview()).matches())
+            Glide.with(context)
+                    .load(items.get(position).getPosterPathForPreview())
+                    .into(viewHolder.posterImage);
+
+
         viewHolder.ratingText.setText(Config.ratingFormat.format(items.get(position).getVoteAverage()));
         viewHolder.titleText.setText(items.get(position).getTitle());
 

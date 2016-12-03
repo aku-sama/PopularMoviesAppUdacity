@@ -11,4 +11,6 @@
     <dimen name="poster_size">300dp</dimen>
     <dimen name="dimen_4">4dp</dimen>
     <dimen name="poster_height">150dp</dimen>
+    <dimen name="dimen_48">48dp</dimen>
+    <dimen name="border_size">2dp</dimen>
 </resources>

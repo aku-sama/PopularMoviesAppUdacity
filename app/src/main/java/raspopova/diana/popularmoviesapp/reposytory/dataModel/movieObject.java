@@ -1,11 +1,14 @@
 package raspopova.diana.popularmoviesapp.reposytory.dataModel;
 
+import android.database.Cursor;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import raspopova.diana.popularmoviesapp.reposytory.dataBase.FavouriteColumns;
 import raspopova.diana.popularmoviesapp.reposytory.server.Urls;
 
 /**
@@ -55,6 +58,24 @@ public class movieObject implements Serializable {
     @SerializedName("vote_count")
     private long voteCount;
 
+    public movieObject() {
+    }
+
+    public movieObject(long id,
+                       String title,
+                       String posterPath,
+                       String overview,
+                       String releaseDate,
+                       double voteAverage) {
+        this.id = id;
+        this.title = title;
+        this.posterPath = posterPath;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        this.voteAverage = voteAverage;
+
+    }
+
     public boolean isAdult() {
         return adult;
     }
@@ -95,6 +116,10 @@ public class movieObject implements Serializable {
         return Urls.BASE_URL_IMAGE + Urls.IMAGE_SIZE_ORIGINAL + posterPath;
     }
 
+    public String getPurePosterPah(){
+        return  posterPath;
+    }
+
     public double getPopularity() {
         return popularity;
     }
@@ -114,4 +139,21 @@ public class movieObject implements Serializable {
     public long getVoteCount() {
         return voteCount;
     }
+
+
+    public static movieObject fromCursor(Cursor cursor) {
+
+        movieObject favourite = new movieObject(
+                cursor.getLong(cursor.getColumnIndex(FavouriteColumns._ID)),
+                cursor.getString(cursor.getColumnIndex(FavouriteColumns.TITLE)),
+                cursor.getString(cursor.getColumnIndex(FavouriteColumns.POSTER_PATH)),
+                cursor.getString(cursor.getColumnIndex(FavouriteColumns.OVERVIEW)),
+                cursor.getString(cursor.getColumnIndex(FavouriteColumns.RELEASE_DATE)),
+                cursor.getDouble(cursor.getColumnIndex(FavouriteColumns.VOTE_AVERAGE)));
+
+        return favourite;
+
+
+    }
+
 }

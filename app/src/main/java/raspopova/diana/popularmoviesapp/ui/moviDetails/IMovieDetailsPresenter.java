@@ -11,4 +11,6 @@ public interface IMovieDetailsPresenter extends IGeneralPresenter {
     void onAttacheView(IMovieDetailsView view);
 
     void initialize(movieObject movie);
+
+    void changeFavouriteStatus();
 }

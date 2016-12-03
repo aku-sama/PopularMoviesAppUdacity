@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/rootLayout"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:descendantFocusability="blocksDescendants"
+                android:padding="@dimen/dimen_16">
+
+    <RelativeLayout
+        android:id="@+id/posterLayout"
+        android:layout_width="@dimen/grid_column_width"
+        android:layout_height="100dp"
+        android:background="@color/accent"
+        android:padding="@dimen/border_size">
+
+        <ImageView
+            android:id="@+id/posterImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_poster_placeholder"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textMovieTitle"
+        style="@style/ItemHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_4"
+        android:layout_toRightOf="@+id/posterLayout"
+        android:paddingLeft="@dimen/dimen_16"
+        tools:text="Movie Title"
+        />
+
+    <TextView
+        android:id="@+id/textRating"
+        style="@style/ItemContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textMovieTitle"
+        android:layout_marginBottom="@dimen/dimen_4"
+        android:layout_toRightOf="@+id/posterLayout"
+        android:paddingLeft="@dimen/dimen_16"
+        android:text="@string/rating"/>
+
+    <TextView
+        android:id="@+id/textReleaseDate"
+        style="@style/ItemContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textRating"
+        android:layout_toRightOf="@+id/posterLayout"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/release_date"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignBottom="@id/posterLayout"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:layout_toRightOf="@id/posterLayout"
+        android:background="@color/accent"/>
+</RelativeLayout>

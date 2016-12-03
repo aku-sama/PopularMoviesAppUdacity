@@ -68,13 +68,13 @@
         <item name="android:textColor">@color/secondary_text</item>
     </style>
 
-    <style name="ReviewHeader" parent="Base.TextAppearance.AppCompat.Title">
-        <item name="android:gravity">center</item>
+    <style name="ItemHeader" parent="Base.TextAppearance.AppCompat.Title">
         <item name="android:maxLines">1</item>
         <item name="android:textColor">@color/primary_text</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="ReviewContent" parent="Base.TextAppearance.AppCompat.Body1">
+    <style name="ItemContent" parent="Base.TextAppearance.AppCompat.Body1">
         <item name="android:textColor">@color/secondary_text</item>
     </style>
 </resources>

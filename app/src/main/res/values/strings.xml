@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Popular Movies App</string>
+
+    <!-- titles-->
+    <string name="title_activity_favourites">Favourites</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_reviews">Reviews</string>
+    <!-- PREFS -->
 
     <string-array name="pref_sorting_names">
         <item>Sort by rating</item>
@@ -32,17 +36,25 @@
     <string name="pref_language_key">pref_lang_key</string>
     <string name="pref_language_default_value">0</string>
 
+    <!-- menu -->
     <string name="menu_settings">Settings</string>
+    <string name="menu_favourites">Favourites</string>
 
+    <!-- snack and some errors -->
     <string name="http_no_internet">No internet connection</string>
     <string name="no_more_pages">You already load all available pages in this list</string>
     <string name="error_dismiss">OK</string>
 
-
+    <!--movie details -->
     <string name="rating_default">0.0</string>
     <string name="rating">Rating: %1$s</string>
     <string name="release_date">Release date: %1$s</string>
     <string name="review_count">Watch reviews: %1$s</string>
+
+    <!-- reviews -->
     <string name="reviews_empty">No Reviews yet</string>
     <string name="read_more"> ... read more</string>
+    <string name="favourites_empty">No Favourites Yet</string>
+    <string name="error_add_to_favourite">Can\'t add movie to favourite</string>
+
 </resources>

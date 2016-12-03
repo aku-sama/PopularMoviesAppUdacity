@@ -4,14 +4,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/accent"
-                android:padding="2dp">
+                android:padding="@dimen/border_size">
 
     <ImageView
         android:id="@+id/imagePoster"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:minHeight="@dimen/poster_height"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_poster_placeholder"/>
 
     <TextView
         android:id="@+id/textRating"

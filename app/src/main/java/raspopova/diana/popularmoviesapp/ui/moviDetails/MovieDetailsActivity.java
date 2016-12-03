@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -66,6 +67,9 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
 
     @BindView(R.id.progressView)
     ProgressBar progressView;
+
+    @BindView(R.id.fabFavourite)
+    FloatingActionButton fabFavourite;
 
     private movieObject movie;
     private IMovieDetailsPresenter presenter;
@@ -155,6 +159,11 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
     }
 
     @Override
+    public void changeFavouriteStatus(boolean isFavourite) {
+        fabFavourite.setImageResource(isFavourite ? R.drawable.ic_fav_active : R.drawable.ic_fav_unactive);
+    }
+
+    @Override
     public void showProgress() {
         progressView.setVisibility(View.VISIBLE);
     }
@@ -181,4 +190,8 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
         startActivity(intent);
     }
 
+    @OnClick(R.id.fabFavourite)
+    void onFabClick() {
+        presenter.changeFavouriteStatus();
+    }
 }
