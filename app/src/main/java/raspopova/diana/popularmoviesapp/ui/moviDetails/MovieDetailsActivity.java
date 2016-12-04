@@ -2,6 +2,7 @@ package raspopova.diana.popularmoviesapp.ui.moviDetails;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -20,6 +22,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import raspopova.diana.popularmoviesapp.app.BundleConfig;
+import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
+import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerListObject;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerObject;
 import raspopova.diana.popularmoviesapp.ui.GeneralActivity;
 import raspopova.diana.popularmoviesapp.R;
@@ -82,14 +86,39 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
         ButterKnife.bind(this);
 
         if (getIntent().getExtras() != null) {
-            movie =  getIntent().getParcelableExtra(BundleConfig.MOVIE);
-        }
+            movie = getIntent().getParcelableExtra(BundleConfig.MOVIE);
+            saveToPref(movie);
+        } else
+            movie = getFromPref();
+
         presenter = new MovieDetailsPresenter();
 
         setToolbar();
 
+        presenter.onAttacheView(this);
+        if (movie != null)
+            presenter.initialize(movie);
     }
 
+    private movieObject getFromPref() {
+        Gson gson = new Gson();
+        String movieString =
+                PreferenceManager.getDefaultSharedPreferences(this).getString(BundleConfig.MOVIE, "");
+        movieObject lastMovie = gson.fromJson(movieString, movieObject.class);
+        return lastMovie;
+    }
+
+    private void saveToPref(movieObject movie) {
+        Gson gson = new Gson();
+        String movieString = gson.toJson(movie, movieObject.class);
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putString(BundleConfig.MOVIE, movieString).apply();
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.onDetachView();
+        super.onDestroy();
+    }
 
     private void setToolbar() {
         setSupportActionBar(toolbar);
@@ -110,27 +139,18 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(BundleConfig.MOVIE, movie);
+        outState.putParcelable(BundleConfig.MOVIE, presenter.getMovie());
+        outState.putParcelable(BundleConfig.MOVIE_TRAILERS, presenter.getTrailerList());
+        outState.putParcelable(BundleConfig.MOVIE_REVIEWS_FIRST_PAGE, presenter.getReviewList());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        movie =  savedInstanceState.getParcelable(BundleConfig.MOVIE);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        presenter.onAttacheView(this);
-        if (movie != null)
-            presenter.initialize(movie);
-    }
-
-    @Override
-    protected void onStop() {
-        presenter.onDetachView();
-        super.onStop();
+        movie = savedInstanceState.getParcelable(BundleConfig.MOVIE);
+        trailerListObject trailers = savedInstanceState.getParcelable(BundleConfig.MOVIE_TRAILERS);
+        reviewListObject reviews = savedInstanceState.getParcelable(BundleConfig.MOVIE_REVIEWS_FIRST_PAGE);
+        presenter.restoreState(movie, trailers, reviews);
     }
 
 
@@ -194,4 +214,6 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
     void onFabClick() {
         presenter.changeFavouriteStatus();
     }
+
+
 }

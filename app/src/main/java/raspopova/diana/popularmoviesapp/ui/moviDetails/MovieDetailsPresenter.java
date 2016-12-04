@@ -47,17 +47,7 @@ public class MovieDetailsPresenter implements IMovieDetailsPresenter, IMovieDeta
         this.movie = movie;
         if (view != null) {
             //fill header
-            Resources res = MovieApplication.getInstance().getResources();
-            String title = movie.getTitle();
-            String date = String.format(res.getString(R.string.release_date), movie.getReleaseDate());
-            String url = movie.getPosterPath();
-            String rating = String.format(res.getString(R.string.rating), Config.ratingFormat.format(movie.getVoteAverage()));
-
-            view.fillHeader(url, title, rating, date);
-
-            //fill Overview
-            String overview = movie.getOverview();
-            view.fillOverview(overview);
+            fillHeader(movie);
 
             //fill default review by 0 and request 1st review page
             view.fillReviewCount(String.format(MovieApplication.getInstance().getString(R.string.review_count), "0"));
@@ -72,6 +62,20 @@ public class MovieDetailsPresenter implements IMovieDetailsPresenter, IMovieDeta
         }
     }
 
+    private void fillHeader(movieObject movie) {
+        Resources res = MovieApplication.getInstance().getResources();
+        String title = movie.getTitle();
+        String date = String.format(res.getString(R.string.release_date), movie.getReleaseDate());
+        String url = movie.getPosterPath();
+        String rating = String.format(res.getString(R.string.rating), Config.ratingFormat.format(movie.getVoteAverage()));
+
+        view.fillHeader(url, title, rating, date);
+
+        //fill Overview
+        String overview = movie.getOverview();
+        view.fillOverview(overview);
+    }
+
     @Override
     public void changeFavouriteStatus() {
         if (isFavourite())
@@ -79,6 +83,37 @@ public class MovieDetailsPresenter implements IMovieDetailsPresenter, IMovieDeta
         else
             insertToFavourite();
 
+    }
+
+    @Override
+    public movieObject getMovie() {
+        return movie;
+    }
+
+    @Override
+    public trailerListObject getTrailerList() {
+        return trailerList;
+    }
+
+    @Override
+    public reviewListObject getReviewList() {
+        return reviewFirstPage;
+    }
+
+    @Override
+    public void restoreState(movieObject movie, trailerListObject trailers, reviewListObject reviews) {
+        this.movie = movie;
+        this.reviewFirstPage = reviews;
+        this.trailerList = trailers;
+        if(view!=null)
+        {
+            fillHeader(movie);
+            view.fillTrailerList(this.trailerList.getResults());
+            view.fillReviewCount(String.format(MovieApplication.getInstance().getString(R.string.review_count),
+                    String.valueOf(reviewFirstPage.getTotalResults())));
+            //check favourite status
+            view.changeFavouriteStatus(isFavourite());
+        }
     }
 
     private boolean isFavourite() {

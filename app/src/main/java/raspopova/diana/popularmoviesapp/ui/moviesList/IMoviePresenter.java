@@ -22,5 +22,5 @@ public interface IMoviePresenter extends IGeneralPresenter {
 
     long getMoviePageCount();
 
-    void restoreState(List<movieObject> movies, long totalPages, int lastVisiblePosition);
+    void restoreState(List<movieObject> movies, long totalPages, int firstVisiblePosition);
 }

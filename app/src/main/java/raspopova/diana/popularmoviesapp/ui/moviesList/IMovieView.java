@@ -14,5 +14,5 @@ public interface IMovieView extends IGeneralView {
 
     void showMovieDetails(movieObject item);
 
-    void setLastVisiblePosition(int position);
+    void setFirstVisiblePosition(int position);
 }

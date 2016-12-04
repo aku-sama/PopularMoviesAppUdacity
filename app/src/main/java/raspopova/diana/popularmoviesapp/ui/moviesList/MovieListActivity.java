@@ -111,7 +111,7 @@ public class MovieListActivity extends GeneralActivity implements IMovieView {
         outState.putParcelableArrayList(BundleConfig.MOVIE_LIST, parcelableList);
         outState.putLong(BundleConfig.MOVIE_LIST_TOTAL_PAGE, presenter.getMoviePageCount());
         outState.putInt(BundleConfig.MOVIE_LIST_CURRENT_PAGE, listener.getCurrent_page());
-        outState.putInt(BundleConfig.MOVIE_LIST_POSITION, movieGridView.getLastVisiblePosition());
+        outState.putInt(BundleConfig.MOVIE_LIST_POSITION, movieGridView.getFirstVisiblePosition());
     }
 
     @Override
@@ -120,8 +120,8 @@ public class MovieListActivity extends GeneralActivity implements IMovieView {
 
         ArrayList<movieObject> parcelableList = savedInstanceState.getParcelableArrayList(BundleConfig.MOVIE_LIST);
         long totalPage = savedInstanceState.getLong(BundleConfig.MOVIE_LIST_TOTAL_PAGE);
-        int lastVisiblePosition = savedInstanceState.getInt(BundleConfig.MOVIE_LIST_POSITION);
-        presenter.restoreState(parcelableList, totalPage, lastVisiblePosition);
+        int firstVisiblePosition = savedInstanceState.getInt(BundleConfig.MOVIE_LIST_POSITION);
+        presenter.restoreState(parcelableList, totalPage, firstVisiblePosition);
 
         int currentPage = savedInstanceState.getInt(BundleConfig.MOVIE_LIST_CURRENT_PAGE);
         listener.setCurrent_page(currentPage);
@@ -140,7 +140,7 @@ public class MovieListActivity extends GeneralActivity implements IMovieView {
     }
 
     @Override
-    public void setLastVisiblePosition(int position) {
+    public void setFirstVisiblePosition(int position) {
         movieGridView.smoothScrollToPosition(position);
     }
 

@@ -17,8 +17,8 @@ import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
  */
 public class MoviePresenter implements IMoviePresenter, IMovieInteractor.onMovieGetListener {
 
-
     public static final String POPULAR_SORT_ORDER = "0";
+
     private IMovieInteractor interactor;
     private IMovieView view;
 
@@ -101,12 +101,12 @@ public class MoviePresenter implements IMoviePresenter, IMovieInteractor.onMovie
     }
 
     @Override
-    public void restoreState(List<movieObject> movies, long totalPages, int lastVisiblePosition) {
+    public void restoreState(List<movieObject> movies, long totalPages, int firstVisiblePosition) {
         endPage = totalPages;
         this.movieList = new ArrayList<>(movies);
         if (view != null) {
             view.fillMovieGrid(movieList);
-            view.setLastVisiblePosition(lastVisiblePosition);
+            view.setFirstVisiblePosition(firstVisiblePosition);
         }
     }
 
