@@ -19,6 +19,7 @@ public class ReviewPresenter implements IReviewPersenter, IReviewsInteractor.onR
     private String movieId;
     private reviewListObject reviews = new reviewListObject();
     boolean isRestored = false;
+    boolean isAlreadyInit = false;
 
     public ReviewPresenter() {
         this.interactor = new ReviewsInteractor();
@@ -47,10 +48,11 @@ public class ReviewPresenter implements IReviewPersenter, IReviewsInteractor.onR
 
     @Override
     public void initialize(String movieId) {
-        if (view != null && !isRestored) {
+        if (view != null && !isRestored && !isAlreadyInit) {
             this.movieId = movieId;
             view.showEmptyState();
             getReview(START_PAGE);
+            isAlreadyInit = true;
         }
     }
 

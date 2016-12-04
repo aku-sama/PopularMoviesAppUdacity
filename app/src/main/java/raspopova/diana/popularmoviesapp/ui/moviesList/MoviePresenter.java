@@ -26,7 +26,7 @@ public class MoviePresenter implements IMoviePresenter, IMovieInteractor.onMovie
     private long endPage = 2;
     private List<movieObject> movieList;
     private String currentOrdering = POPULAR_SORT_ORDER;
-
+    boolean isAlreadyInit = false;
 
     public MoviePresenter() {
         interactor = new MovieInteractor();
@@ -44,8 +44,9 @@ public class MoviePresenter implements IMoviePresenter, IMovieInteractor.onMovie
 
     @Override
     public void initialize() {
-        if (view != null) {
+        if (view != null && !isAlreadyInit) {
             view.showProgress();
+            isAlreadyInit = true;
             //check ordering change
             SharedPreferences pref = PreferenceManager
                     .getDefaultSharedPreferences(MovieApplication.getInstance());
