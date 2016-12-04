@@ -1,6 +1,6 @@
 package raspopova.diana.popularmoviesapp.ui.moviDetails;
 
-import raspopova.diana.popularmoviesapp.reposytory.Repository;
+import raspopova.diana.popularmoviesapp.repository.Repository;
 
 /**
  * Created by Diana on 11/26/2016.

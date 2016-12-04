@@ -2,9 +2,8 @@ package raspopova.diana.popularmoviesapp.ui.reviews;
 
 import java.util.ArrayList;
 
-import raspopova.diana.popularmoviesapp.R;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.reviewListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.reviewObject;
 
 /**
  * Created by Diana on 11/27/2016.

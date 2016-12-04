@@ -1,4 +1,4 @@
-package raspopova.diana.popularmoviesapp.reposytory.dataBase;
+package raspopova.diana.popularmoviesapp.repository.dataBase;
 
 import android.net.Uri;
 

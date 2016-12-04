@@ -2,7 +2,7 @@ package raspopova.diana.popularmoviesapp.ui.moviDetails;
 
 import java.util.List;
 
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.trailerObject;
 import raspopova.diana.popularmoviesapp.ui.IGeneralView;
 
 /**

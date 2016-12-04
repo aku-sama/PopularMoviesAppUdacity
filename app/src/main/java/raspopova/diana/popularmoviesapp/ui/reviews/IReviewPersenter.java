@@ -1,6 +1,6 @@
 package raspopova.diana.popularmoviesapp.ui.reviews;
 
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.reviewListObject;
 import raspopova.diana.popularmoviesapp.ui.IGeneralPresenter;
 
 /**

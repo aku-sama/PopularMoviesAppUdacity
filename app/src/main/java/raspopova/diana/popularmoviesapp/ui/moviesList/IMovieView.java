@@ -2,7 +2,7 @@ package raspopova.diana.popularmoviesapp.ui.moviesList;
 
 import java.util.List;
 
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.movieObject;
 import raspopova.diana.popularmoviesapp.ui.IGeneralView;
 
 /**
@@ -15,4 +15,6 @@ public interface IMovieView extends IGeneralView {
     void showMovieDetails(movieObject item);
 
     void setFirstVisiblePosition(int position);
+
+    void updateGridView();
 }

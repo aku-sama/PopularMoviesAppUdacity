@@ -2,7 +2,7 @@ package raspopova.diana.popularmoviesapp.app;
 
 import android.app.Application;
 
-import raspopova.diana.popularmoviesapp.reposytory.server.RetrofitForMyApp;
+import raspopova.diana.popularmoviesapp.repository.server.RetrofitForMyApp;
 
 /**
  * Created by Diana on 9/3/2016.

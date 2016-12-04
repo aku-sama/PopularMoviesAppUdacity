@@ -1,4 +1,4 @@
-package raspopova.diana.popularmoviesapp.reposytory.server;
+package raspopova.diana.popularmoviesapp.repository.server;
 
 /**
  * Created by Diana on 9/3/2016.

@@ -16,7 +16,7 @@ import java.util.List;
 
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.app.Config;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.movieObject;
 
 /**
  * Created by Diana on 9/3/2016.
@@ -40,9 +40,14 @@ public class MovieGridAdapter extends BaseAdapter {
 
     }
 
+    public void clear() {
+        this.items = null;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
-        return items.size();
+        return items == null ? 0 : items.size();
     }
 
     @Override

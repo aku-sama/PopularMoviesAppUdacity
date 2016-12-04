@@ -1,11 +1,9 @@
-package raspopova.diana.popularmoviesapp.reposytory.dataModel;
+package raspopova.diana.popularmoviesapp.repository.dataModel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
 
 /**
  * Created by Diana on 9/3/2016.

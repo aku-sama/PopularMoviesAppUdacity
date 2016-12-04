@@ -1,18 +1,13 @@
-package raspopova.diana.popularmoviesapp.reposytory.dataModel;
+package raspopova.diana.popularmoviesapp.repository.dataModel;
 
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-
-import raspopova.diana.popularmoviesapp.reposytory.dataBase.FavouriteColumns;
-import raspopova.diana.popularmoviesapp.reposytory.server.Urls;
+import raspopova.diana.popularmoviesapp.repository.dataBase.FavouriteColumns;
+import raspopova.diana.popularmoviesapp.repository.server.Urls;
 
 /**
  * Created by Diana on 9/3/2016.

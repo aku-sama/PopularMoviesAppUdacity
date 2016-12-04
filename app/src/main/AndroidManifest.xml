@@ -55,8 +55,8 @@
             android:theme="@style/AppTheme"/>
 
         <provider
-            android:name=".reposytory.dataBase.generated.FavouriteProvider"
-            android:authorities="raspopova.diana.popularmoviesapp.reposytory.dataBase.FavouriteProvider"/>
+            android:name=".repository.dataBase.generated.FavouriteProvider"
+            android:authorities="raspopova.diana.popularmoviesapp.repository.dataBase.FavouriteProvider"/>
 
     </application>
 

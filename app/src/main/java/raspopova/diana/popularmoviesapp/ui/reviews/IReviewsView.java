@@ -2,7 +2,7 @@ package raspopova.diana.popularmoviesapp.ui.reviews;
 
 import java.util.List;
 
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.reviewObject;
 import raspopova.diana.popularmoviesapp.ui.IGeneralView;
 
 /**

@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import raspopova.diana.popularmoviesapp.R;
-import raspopova.diana.popularmoviesapp.reposytory.dataBase.FavouriteProvider;
+import raspopova.diana.popularmoviesapp.repository.dataBase.FavouriteProvider;
 import raspopova.diana.popularmoviesapp.ui.GeneralActivity;
 
 /**
@@ -70,7 +70,7 @@ public class FavouritesActivity extends GeneralActivity {
         adapter = new FavouritesCursorAdapter(this, cursor);
         favouriteList.setAdapter(adapter);
 
-        if (cursor.getCount() > 0)
+        if (cursor!=null && cursor.getCount() > 0)
             emptyFavouritesLayout.setVisibility(View.GONE);
     }
 

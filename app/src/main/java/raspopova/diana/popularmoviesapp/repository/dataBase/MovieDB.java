@@ -1,4 +1,4 @@
-package raspopova.diana.popularmoviesapp.reposytory.dataBase;
+package raspopova.diana.popularmoviesapp.repository.dataBase;
 
 import net.simonvt.schematic.annotation.Database;
 import net.simonvt.schematic.annotation.Table;

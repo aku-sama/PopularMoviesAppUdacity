@@ -26,8 +26,8 @@ public abstract class EndlessGridOnScrollListener implements AbsListView.OnScrol
     @Override
     public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         //visibleItemCount = absListView.getChildCount();
-       // totalItemCount = mLinearLayoutManager.getAdapter().getCount();
-       // firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+        // totalItemCount = mLinearLayoutManager.getAdapter().getCount();
+        // firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
 
         if (loading) {
             if (totalItemCount > previousTotal) {
@@ -57,7 +57,14 @@ public abstract class EndlessGridOnScrollListener implements AbsListView.OnScrol
     public void setCurrent_page(int value) {
         current_page = value;
     }
+
     public int getCurrent_page() {
-       return current_page ;
+        return current_page;
+    }
+
+    public void reset() {
+        previousTotal = 0;
+        loading = true;
+        current_page = 1;
     }
 }

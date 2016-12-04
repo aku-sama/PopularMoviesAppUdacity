@@ -15,7 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import raspopova.diana.popularmoviesapp.R;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.trailerObject;
 
 /**
  * Created by Diana on 11/26/2016.

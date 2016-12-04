@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.customControls.ExpandableTextView;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.reviewObject;
 
 /**
  * Created by Diana on 11/27/2016.

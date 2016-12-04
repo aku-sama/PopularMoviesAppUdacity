@@ -8,11 +8,11 @@ import android.util.Log;
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.app.Config;
 import raspopova.diana.popularmoviesapp.app.MovieApplication;
-import raspopova.diana.popularmoviesapp.reposytory.dataBase.FavouriteColumns;
-import raspopova.diana.popularmoviesapp.reposytory.dataBase.FavouriteProvider;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerListObject;
+import raspopova.diana.popularmoviesapp.repository.dataBase.FavouriteColumns;
+import raspopova.diana.popularmoviesapp.repository.dataBase.FavouriteProvider;
+import raspopova.diana.popularmoviesapp.repository.dataModel.movieObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.reviewListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.trailerListObject;
 import raspopova.diana.popularmoviesapp.ui.reviews.IReviewsInteractor;
 import raspopova.diana.popularmoviesapp.ui.reviews.ReviewsInteractor;
 

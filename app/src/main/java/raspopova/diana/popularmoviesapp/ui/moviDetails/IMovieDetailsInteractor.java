@@ -1,6 +1,6 @@
 package raspopova.diana.popularmoviesapp.ui.moviDetails;
 
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.trailerListObject;
 import raspopova.diana.popularmoviesapp.ui.IGeneralInteractorListener;
 
 /**

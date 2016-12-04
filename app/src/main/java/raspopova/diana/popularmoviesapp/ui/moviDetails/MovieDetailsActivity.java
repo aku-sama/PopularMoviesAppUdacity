@@ -22,13 +22,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import raspopova.diana.popularmoviesapp.app.BundleConfig;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerListObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.reviewListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.trailerListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.trailerObject;
 import raspopova.diana.popularmoviesapp.ui.GeneralActivity;
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.customControls.TopCroppedImageView;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.movieObject;
 import raspopova.diana.popularmoviesapp.ui.posterView.PosterViewActivity;
 import raspopova.diana.popularmoviesapp.ui.reviews.ReviewsActivity;
 

@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ import butterknife.ButterKnife;
 import raspopova.diana.popularmoviesapp.app.BundleConfig;
 import raspopova.diana.popularmoviesapp.ui.GeneralActivity;
 import raspopova.diana.popularmoviesapp.R;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.movieObject;
 import raspopova.diana.popularmoviesapp.ui.favourites.FavouritesActivity;
 import raspopova.diana.popularmoviesapp.ui.moviDetails.MovieDetailsActivity;
 import raspopova.diana.popularmoviesapp.ui.settings.SettingsActivity;
@@ -100,6 +99,7 @@ public class MovieListActivity extends GeneralActivity implements IMovieView {
     protected void onResume() {
         super.onResume();
         presenter.initialize();
+        presenter.checkSortOrder();
         movieGridView.setOnScrollListener(listener);
         movieGridView.setOnItemClickListener(clickListener);
     }
@@ -142,6 +142,12 @@ public class MovieListActivity extends GeneralActivity implements IMovieView {
     @Override
     public void setFirstVisiblePosition(int position) {
         movieGridView.smoothScrollToPosition(position);
+    }
+
+    @Override
+    public void updateGridView() {
+        listener.reset();
+        adapter.clear();
     }
 
     @Override

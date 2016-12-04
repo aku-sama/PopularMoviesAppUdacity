@@ -1,4 +1,4 @@
-package raspopova.diana.popularmoviesapp.reposytory.server;
+package raspopova.diana.popularmoviesapp.repository.server;
 
 
 import com.google.gson.Gson;

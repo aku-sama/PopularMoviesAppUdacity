@@ -1,9 +1,9 @@
-package raspopova.diana.popularmoviesapp.reposytory.server;
+package raspopova.diana.popularmoviesapp.repository.server;
 
 
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieListObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.movieListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.reviewListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.trailerListObject;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

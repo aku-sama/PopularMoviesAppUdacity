@@ -9,8 +9,8 @@ import java.util.List;
 
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.app.MovieApplication;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieListObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.movieListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.movieObject;
 
 /**
  * Created by Diana on 9/3/2016.
@@ -47,18 +47,6 @@ public class MoviePresenter implements IMoviePresenter, IMovieInteractor.onMovie
         if (view != null && !isAlreadyInit) {
             view.showProgress();
             isAlreadyInit = true;
-            //check ordering change
-            SharedPreferences pref = PreferenceManager
-                    .getDefaultSharedPreferences(MovieApplication.getInstance());
-            String sortOrder = pref.getString(MovieApplication.getInstance().getString(R.string.pref_sort_key),
-                    MovieApplication.getInstance().getString(R.string.pref_default_value));
-
-            //if order was changed, reset list
-            if (!currentOrdering.equals(sortOrder)) {
-                movieList.clear();
-                endPage = 2;
-                currentOrdering = sortOrder;
-            }
 
             if (currentOrdering.equals(POPULAR_SORT_ORDER))
                 interactor.getPopularMovie(firstPage, this);
@@ -81,6 +69,31 @@ public class MoviePresenter implements IMoviePresenter, IMovieInteractor.onMovie
             } else {
                 view.showError(R.string.no_more_pages);
             }
+        }
+    }
+
+    @Override
+    public void checkSortOrder() {
+        if (view != null) {
+
+            //check ordering change
+            SharedPreferences pref = PreferenceManager
+                    .getDefaultSharedPreferences(MovieApplication.getInstance());
+            String sortOrder = pref.getString(MovieApplication.getInstance().getString(R.string.pref_sort_key),
+                    MovieApplication.getInstance().getString(R.string.pref_default_value));
+
+            //if order was changed, reset list
+            if (!currentOrdering.equals(sortOrder)) {
+                movieList.clear();
+                endPage = 2;
+                currentOrdering = sortOrder;
+
+                isAlreadyInit = false;
+                view.updateGridView();
+                initialize();
+            }
+
+
         }
     }
 

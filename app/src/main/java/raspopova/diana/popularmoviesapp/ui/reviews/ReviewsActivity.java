@@ -16,8 +16,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.app.BundleConfig;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.reviewListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.reviewObject;
 import raspopova.diana.popularmoviesapp.ui.GeneralActivity;
 import raspopova.diana.popularmoviesapp.utils.EndlessRecyclerOnScrollListener;
 

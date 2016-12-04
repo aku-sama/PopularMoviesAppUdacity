@@ -1,10 +1,10 @@
-package raspopova.diana.popularmoviesapp.reposytory.server;
+package raspopova.diana.popularmoviesapp.repository.server;
 
 
 import raspopova.diana.popularmoviesapp.app.ApiKey;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieListObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.movieListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.reviewListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.trailerListObject;
 import raspopova.diana.popularmoviesapp.utils.LocaleHelper;
 import retrofit2.Call;
 import retrofit2.Callback;

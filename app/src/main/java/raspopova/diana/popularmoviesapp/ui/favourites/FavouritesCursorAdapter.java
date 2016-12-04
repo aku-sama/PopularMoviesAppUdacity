@@ -3,8 +3,6 @@ package raspopova.diana.popularmoviesapp.ui.favourites;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -22,7 +20,7 @@ import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.app.BundleConfig;
 import raspopova.diana.popularmoviesapp.app.Config;
 import raspopova.diana.popularmoviesapp.app.MovieApplication;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.movieObject;
 import raspopova.diana.popularmoviesapp.ui.moviDetails.MovieDetailsActivity;
 import raspopova.diana.popularmoviesapp.utils.CursorRecyclerViewAdapter;
 

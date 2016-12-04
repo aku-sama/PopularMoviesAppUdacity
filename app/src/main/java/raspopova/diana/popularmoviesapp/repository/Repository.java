@@ -1,10 +1,10 @@
-package raspopova.diana.popularmoviesapp.reposytory;
+package raspopova.diana.popularmoviesapp.repository;
 
 import raspopova.diana.popularmoviesapp.R;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieListObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.trailerListObject;
-import raspopova.diana.popularmoviesapp.reposytory.server.ServerMethods;
+import raspopova.diana.popularmoviesapp.repository.dataModel.movieListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.reviewListObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.trailerListObject;
+import raspopova.diana.popularmoviesapp.repository.server.ServerMethods;
 import raspopova.diana.popularmoviesapp.ui.moviDetails.IMovieDetailsInteractor;
 import raspopova.diana.popularmoviesapp.ui.moviesList.IMovieInteractor;
 import raspopova.diana.popularmoviesapp.ui.reviews.IReviewsInteractor;

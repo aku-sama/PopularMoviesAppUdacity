@@ -2,7 +2,7 @@ package raspopova.diana.popularmoviesapp.ui.moviesList;
 
 import java.util.List;
 
-import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
+import raspopova.diana.popularmoviesapp.repository.dataModel.movieObject;
 import raspopova.diana.popularmoviesapp.ui.IGeneralPresenter;
 
 /**
@@ -15,6 +15,8 @@ public interface IMoviePresenter extends IGeneralPresenter {
     void initialize();
 
     void getNewMoviePage(int page);
+
+    void checkSortOrder();
 
     void onMoviePreviewClick(int position);
 
