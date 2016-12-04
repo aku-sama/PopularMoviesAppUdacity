@@ -55,4 +55,8 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
     public void setCurrent_page(int value) {
         current_page = value;
     }
+
+    public int getCurrent_page() {
+        return current_page;
+    }
 }

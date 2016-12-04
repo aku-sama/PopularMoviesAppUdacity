@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,8 +38,20 @@ public class reviewListObject implements Parcelable {
         return page;
     }
 
+    public void setPage(long page) {
+        this.page = page;
+    }
+
     public List<reviewObject> getResults() {
-        return Arrays.asList(results);
+        return results == null ? new ArrayList<reviewObject>() : Arrays.asList(results);
+    }
+
+    public void appendResults(ArrayList<reviewObject> appendResults) {
+        ArrayList<reviewObject> currentResults = new ArrayList<>();
+        currentResults.addAll(getResults());
+        currentResults.addAll(appendResults);
+        results = new reviewObject[currentResults.size()];
+        currentResults.toArray(results);
     }
 
     public long getTotalPages() {

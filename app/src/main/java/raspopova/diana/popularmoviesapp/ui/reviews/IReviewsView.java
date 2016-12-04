@@ -16,4 +16,6 @@ public interface IReviewsView extends IGeneralView {
     void showEmptyState();
 
     void hideEmptyState();
+
+    void setFirstVisiblePosition(int position);
 }

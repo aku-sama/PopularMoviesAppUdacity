@@ -1,7 +1,10 @@
 package raspopova.diana.popularmoviesapp.ui.reviews;
 
+import java.util.ArrayList;
+
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
+import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewObject;
 
 /**
  * Created by Diana on 11/27/2016.
@@ -15,6 +18,7 @@ public class ReviewPresenter implements IReviewPersenter, IReviewsInteractor.onR
 
     private String movieId;
     private reviewListObject reviews = new reviewListObject();
+    boolean isRestored = false;
 
     public ReviewPresenter() {
         this.interactor = new ReviewsInteractor();
@@ -43,7 +47,7 @@ public class ReviewPresenter implements IReviewPersenter, IReviewsInteractor.onR
 
     @Override
     public void initialize(String movieId) {
-        if (view != null) {
+        if (view != null && !isRestored) {
             this.movieId = movieId;
             view.showEmptyState();
             getReview(START_PAGE);
@@ -56,9 +60,28 @@ public class ReviewPresenter implements IReviewPersenter, IReviewsInteractor.onR
             if (page == 1 || page < reviews.getTotalPages()) {
                 view.showProgress();
                 interactor.getReviews(page, movieId, this);
-            } else if (page != 2 ) {
-                view.showError(R.string.no_more_pages);
             }
+        }
+    }
+
+    @Override
+    public String getMovieID() {
+        return movieId;
+    }
+
+    @Override
+    public reviewListObject getReviewList() {
+        return reviews;
+    }
+
+    @Override
+    public void restoreState(String movieID, reviewListObject reviews, int firstVisiblePosition) {
+        this.movieId = movieID;
+        this.reviews = reviews;
+        isRestored = true;
+        if (view != null) {
+            view.setReview(reviews.getResults());
+            view.setFirstVisiblePosition(firstVisiblePosition);
         }
     }
 
@@ -71,6 +94,13 @@ public class ReviewPresenter implements IReviewPersenter, IReviewsInteractor.onR
     public void onSuccess(reviewListObject list) {
         if (view != null) {
             view.hideProgress();
+
+            if (this.reviews.getResults().size() == 0) {
+                this.reviews = list;
+            } else {
+                this.reviews.setPage(list.getPage());
+                this.reviews.appendResults(new ArrayList<reviewObject>(list.getResults()));
+            }
             view.setReview(list.getResults());
         }
     }

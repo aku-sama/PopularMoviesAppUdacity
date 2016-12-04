@@ -16,9 +16,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import raspopova.diana.popularmoviesapp.R;
 import raspopova.diana.popularmoviesapp.app.BundleConfig;
+import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
 import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewObject;
 import raspopova.diana.popularmoviesapp.ui.GeneralActivity;
-import raspopova.diana.popularmoviesapp.utils.EndlessGridOnScrollListener;
 import raspopova.diana.popularmoviesapp.utils.EndlessRecyclerOnScrollListener;
 
 /**
@@ -43,6 +43,8 @@ public class ReviewsActivity extends GeneralActivity implements IReviewsView {
     ProgressBar progressView;
 
     private ReviewsAdapter adapter;
+    EndlessRecyclerOnScrollListener listener;
+    LinearLayoutManager layoutManager;
     private IReviewPersenter presenter;
     private String movieId = "0";
 
@@ -55,27 +57,30 @@ public class ReviewsActivity extends GeneralActivity implements IReviewsView {
         presenter = new ReviewPresenter();
         //set toolbar
         setToolbar();
-
-        //init review list
+        //set list
         initReviewList();
 
+
         if (getIntent().getExtras() != null) {
-            movieId = getIntent().getStringExtra(BundleConfig.MOVIE_ID);
+            movieId = getIntent().getStringExtra(BundleConfig.REVIEWS_MOVIE_ID);
         }
     }
 
+
     private void initReviewList() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
         adapter = new ReviewsAdapter(this);
         reviewList.setLayoutManager(layoutManager);
         reviewList.setAdapter(adapter);
-        reviewList.setOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
+        listener = new EndlessRecyclerOnScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int current_page) {
                 presenter.getReview(current_page);
             }
-        });
+        };
+
     }
+
 
     private void setToolbar() {
         setSupportActionBar(toolbar);
@@ -89,7 +94,13 @@ public class ReviewsActivity extends GeneralActivity implements IReviewsView {
     protected void onStart() {
         super.onStart();
         presenter.onAttacheView(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         presenter.initialize(movieId);
+        reviewList.setOnScrollListener(listener);
     }
 
     @Override
@@ -101,20 +112,29 @@ public class ReviewsActivity extends GeneralActivity implements IReviewsView {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(BundleConfig.MOVIE_ID, movieId);
+        outState.putString(BundleConfig.REVIEWS_MOVIE_ID, presenter.getMovieID());
+        outState.putInt(BundleConfig.REVIEWS_LIST_CURRENT_PAGE, listener.getCurrent_page());
+        outState.putParcelable(BundleConfig.REVIEWS_LIST, presenter.getReviewList());
+        outState.putInt(BundleConfig.REVIEWS_LIST_POSITION, layoutManager.findFirstVisibleItemPosition());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        movieId = savedInstanceState.getString(BundleConfig.MOVIE_ID);
+        movieId = savedInstanceState.getString(BundleConfig.REVIEWS_MOVIE_ID);
+        reviewListObject reviews = savedInstanceState.getParcelable(BundleConfig.REVIEWS_LIST);
+        int listPosition = savedInstanceState.getInt(BundleConfig.REVIEWS_LIST_POSITION);
+        presenter.restoreState(movieId, reviews, listPosition);
+
+        int currentPage = savedInstanceState.getInt(BundleConfig.REVIEWS_LIST_CURRENT_PAGE);
+        listener.setCurrent_page(currentPage);
     }
 
     @Override
     public void setReview(List<reviewObject> list) {
         adapter.setData(list);
 
-        if(adapter.getItemCount()>0)
+        if (adapter.getItemCount() > 0)
             hideEmptyState();
         else
             showEmptyState();
@@ -128,6 +148,11 @@ public class ReviewsActivity extends GeneralActivity implements IReviewsView {
     @Override
     public void hideEmptyState() {
         emptyReviewsLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setFirstVisiblePosition(int position) {
+        layoutManager.scrollToPosition(position);
     }
 
     @Override

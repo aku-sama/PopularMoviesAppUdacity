@@ -206,7 +206,7 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
     @OnClick(R.id.reviewText)
     void onReviewsClick() {
         Intent intent = new Intent(this, ReviewsActivity.class);
-        intent.putExtra(BundleConfig.MOVIE_ID, String.valueOf(movie.getId()));
+        intent.putExtra(BundleConfig.REVIEWS_MOVIE_ID, String.valueOf(movie.getId()));
         startActivity(intent);
     }
 

@@ -1,5 +1,6 @@
 package raspopova.diana.popularmoviesapp.ui.reviews;
 
+import raspopova.diana.popularmoviesapp.reposytory.dataModel.reviewListObject;
 import raspopova.diana.popularmoviesapp.ui.IGeneralPresenter;
 
 /**
@@ -12,4 +13,10 @@ public interface IReviewPersenter extends IGeneralPresenter {
     void initialize(String movieId);
 
     void getReview(int page);
+
+    String getMovieID();
+
+    reviewListObject getReviewList();
+
+    void restoreState(String movieID, reviewListObject reviews, int firstVisiblePosition);
 }
