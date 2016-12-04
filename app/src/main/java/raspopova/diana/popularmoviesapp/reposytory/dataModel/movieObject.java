@@ -1,6 +1,9 @@
 package raspopova.diana.popularmoviesapp.reposytory.dataModel;
 
 import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -14,25 +17,12 @@ import raspopova.diana.popularmoviesapp.reposytory.server.Urls;
 /**
  * Created by Diana on 9/3/2016.
  */
-public class movieObject implements Serializable {
+public class movieObject implements Parcelable {
 
-    @SerializedName("adult")
-    private boolean adult;
-
-    @SerializedName("backdrop_path")
-    private String backdropPath;
-
-    @SerializedName("genre_ids")
-    private Integer[] genreIds;
+    private static final String LOG_TAG = "PARCEL";
 
     @SerializedName("id")
     private long id;
-
-    @SerializedName("original_language")
-    private String originalLanguage;
-
-    @SerializedName("original_title")
-    private String originalTitle;
 
     @SerializedName("overview")
     private String overview;
@@ -43,20 +33,11 @@ public class movieObject implements Serializable {
     @SerializedName("poster_path")
     private String posterPath;
 
-    @SerializedName("popularity")
-    private double popularity;
-
     @SerializedName("title")
     private String title;
 
-    @SerializedName("video")
-    private boolean video;
-
     @SerializedName("vote_average")
     private double voteAverage;
-
-    @SerializedName("vote_count")
-    private long voteCount;
 
     public movieObject() {
     }
@@ -76,28 +57,8 @@ public class movieObject implements Serializable {
 
     }
 
-    public boolean isAdult() {
-        return adult;
-    }
-
-    public String getBackdropPath() {
-        return Urls.BASE_URL_IMAGE + Urls.IMAGE_SIZE_ORIGINAL + backdropPath;
-    }
-
-    public List<Integer> getGenreIds() {
-        return Arrays.asList(genreIds);
-    }
-
     public long getId() {
         return id;
-    }
-
-    public String getOriginalLanguage() {
-        return originalLanguage;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
     }
 
     public String getOverview() {
@@ -120,26 +81,13 @@ public class movieObject implements Serializable {
         return  posterPath;
     }
 
-    public double getPopularity() {
-        return popularity;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public boolean isVideo() {
-        return video;
     }
 
     public double getVoteAverage() {
         return voteAverage;
     }
-
-    public long getVoteCount() {
-        return voteCount;
-    }
-
 
     public static movieObject fromCursor(Cursor cursor) {
 
@@ -156,4 +104,38 @@ public class movieObject implements Serializable {
 
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+
+        parcel.writeLong(id);
+        parcel.writeString(title);
+        parcel.writeString(posterPath);
+        parcel.writeString(overview);
+        parcel.writeString(releaseDate);
+        parcel.writeDouble(voteAverage);
+    }
+
+    public static final Parcelable.Creator<movieObject> CREATOR = new Parcelable.Creator<movieObject>() {
+        public movieObject createFromParcel(Parcel in) {
+            return new movieObject(in);
+        }
+
+        public movieObject[] newArray(int size) {
+            return new movieObject[size];
+        }
+    };
+
+    private movieObject(Parcel parcel) {
+        id= parcel.readLong();
+        title = parcel.readString();
+        posterPath = parcel.readString();
+        overview = parcel.readString();
+        releaseDate = parcel.readString();
+        voteAverage = parcel.readDouble();
+    }
 }

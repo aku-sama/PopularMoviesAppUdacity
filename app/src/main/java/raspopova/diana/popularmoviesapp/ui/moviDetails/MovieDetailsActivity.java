@@ -82,7 +82,7 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
         ButterKnife.bind(this);
 
         if (getIntent().getExtras() != null) {
-            movie = (movieObject) getIntent().getSerializableExtra(BundleConfig.MOVIE);
+            movie =  getIntent().getParcelableExtra(BundleConfig.MOVIE);
         }
         presenter = new MovieDetailsPresenter();
 
@@ -110,13 +110,13 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(BundleConfig.MOVIE, movie);
+        outState.putParcelable(BundleConfig.MOVIE, movie);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        movie = (movieObject) savedInstanceState.getSerializable(BundleConfig.MOVIE);
+        movie =  savedInstanceState.getParcelable(BundleConfig.MOVIE);
     }
 
     @Override

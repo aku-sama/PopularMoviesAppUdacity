@@ -1,5 +1,8 @@
 package raspopova.diana.popularmoviesapp.reposytory.dataModel;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -7,7 +10,7 @@ import java.io.Serializable;
 /**
  * Created by Diana on 9/3/2016.
  */
-public class trailerObject implements Serializable {
+public class trailerObject implements Parcelable {
 
     @SerializedName("id")
     private String id;
@@ -63,5 +66,46 @@ public class trailerObject implements Serializable {
 
     public String getType() {
         return type;
+    }
+
+    public trailerObject() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeString(id);
+        parcel.writeString(iso_639_1);
+        parcel.writeString(iso_3166_1);
+        parcel.writeString(key);
+        parcel.writeString(site);
+        parcel.writeString(name);
+        parcel.writeInt(size);
+        parcel.writeString(type);
+    }
+
+    public static final Parcelable.Creator<trailerObject> CREATOR = new Parcelable.Creator<trailerObject>() {
+        public trailerObject createFromParcel(Parcel in) {
+            return new trailerObject(in);
+        }
+
+        public trailerObject[] newArray(int size) {
+            return new trailerObject[size];
+        }
+    };
+
+    private trailerObject(Parcel parcel) {
+        id = parcel.readString();
+        iso_639_1 = parcel.readString();
+        iso_3166_1 = parcel.readString();
+        key = parcel.readString();
+        site = parcel.readString();
+        name = parcel.readString();
+        size = parcel.readInt();
+        type = parcel.readString();
     }
 }

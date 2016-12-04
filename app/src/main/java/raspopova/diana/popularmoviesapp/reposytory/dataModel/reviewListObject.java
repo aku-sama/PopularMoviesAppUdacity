@@ -1,5 +1,8 @@
 package raspopova.diana.popularmoviesapp.reposytory.dataModel;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Arrays;
@@ -9,7 +12,7 @@ import java.util.List;
  * Created by Diana on 11/26/2016.
  */
 
-public class reviewListObject {
+public class reviewListObject implements Parcelable {
 
     @SerializedName("id")
     private long id;
@@ -44,5 +47,42 @@ public class reviewListObject {
 
     public long getTotalResults() {
         return totalResults;
+    }
+
+    public reviewListObject() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+
+        parcel.writeLong(id);
+        parcel.writeLong(page);
+        parcel.writeLong(totalPages);
+        parcel.writeLong(totalResults);
+        parcel.writeTypedArray(results, flags);
+    }
+
+    public static final Parcelable.Creator<reviewListObject> CREATOR = new Parcelable.Creator<reviewListObject>() {
+        public reviewListObject createFromParcel(Parcel in) {
+            return new reviewListObject(in);
+        }
+
+        public reviewListObject[] newArray(int size) {
+            return new reviewListObject[size];
+        }
+    };
+
+    private reviewListObject(Parcel parcel) {
+
+        id = parcel.readLong();
+        page = parcel.readLong();
+        totalPages = parcel.readLong();
+        totalResults = parcel.readLong();
+        results = parcel.createTypedArray(reviewObject.CREATOR);
     }
 }
