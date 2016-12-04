@@ -13,4 +13,6 @@ public interface IMovieView extends IGeneralView {
     void fillMovieGrid(List<movieObject> result);
 
     void showMovieDetails(movieObject item);
+
+    void setLastVisiblePosition(int position);
 }

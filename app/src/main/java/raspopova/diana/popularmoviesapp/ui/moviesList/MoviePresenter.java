@@ -91,6 +91,27 @@ public class MoviePresenter implements IMoviePresenter, IMovieInteractor.onMovie
     }
 
     @Override
+    public List<movieObject> getMovieList() {
+        return movieList;
+    }
+
+    @Override
+    public long getMoviePageCount() {
+        return endPage;
+    }
+
+    @Override
+    public void restoreState(List<movieObject> movies, long totalPages, int lastVisiblePosition) {
+        endPage = totalPages;
+        this.movieList = new ArrayList<>(movies);
+        if (view != null) {
+            view.fillMovieGrid(movieList);
+            view.setLastVisiblePosition(lastVisiblePosition);
+        }
+    }
+
+
+    @Override
     public void onSuccess(movieListObject result) {
         if (view != null) {
             view.hideProgress();

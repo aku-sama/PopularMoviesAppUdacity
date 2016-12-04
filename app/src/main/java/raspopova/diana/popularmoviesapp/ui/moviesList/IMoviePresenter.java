@@ -1,5 +1,8 @@
 package raspopova.diana.popularmoviesapp.ui.moviesList;
 
+import java.util.List;
+
+import raspopova.diana.popularmoviesapp.reposytory.dataModel.movieObject;
 import raspopova.diana.popularmoviesapp.ui.IGeneralPresenter;
 
 /**
@@ -14,4 +17,10 @@ public interface IMoviePresenter extends IGeneralPresenter {
     void getNewMoviePage(int page);
 
     void onMoviePreviewClick(int position);
+
+    List<movieObject> getMovieList();
+
+    long getMoviePageCount();
+
+    void restoreState(List<movieObject> movies, long totalPages, int lastVisiblePosition);
 }

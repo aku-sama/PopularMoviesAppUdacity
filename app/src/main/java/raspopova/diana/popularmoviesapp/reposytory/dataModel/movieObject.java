@@ -19,7 +19,6 @@ import raspopova.diana.popularmoviesapp.reposytory.server.Urls;
  */
 public class movieObject implements Parcelable {
 
-    private static final String LOG_TAG = "PARCEL";
 
     @SerializedName("id")
     private long id;

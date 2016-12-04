@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,17 +87,44 @@ public class MovieListActivity extends GeneralActivity implements IMovieView {
     protected void onStart() {
         super.onStart();
         presenter.onAttacheView(this);
-        presenter.initialize();
-        movieGridView.setOnScrollListener(listener);
-        movieGridView.setOnItemClickListener(clickListener);
-
     }
-
 
     @Override
     protected void onStop() {
         presenter.onDetachView();
         super.onStop();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.initialize();
+        movieGridView.setOnScrollListener(listener);
+        movieGridView.setOnItemClickListener(clickListener);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ArrayList<movieObject> parcelableList = new ArrayList<>(presenter.getMovieList());
+        outState.putParcelableArrayList(BundleConfig.MOVIE_LIST, parcelableList);
+        outState.putLong(BundleConfig.MOVIE_LIST_TOTAL_PAGE, presenter.getMoviePageCount());
+        outState.putInt(BundleConfig.MOVIE_LIST_CURRENT_PAGE, listener.getCurrent_page());
+        outState.putInt(BundleConfig.MOVIE_LIST_POSITION, movieGridView.getLastVisiblePosition());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        ArrayList<movieObject> parcelableList = savedInstanceState.getParcelableArrayList(BundleConfig.MOVIE_LIST);
+        long totalPage = savedInstanceState.getLong(BundleConfig.MOVIE_LIST_TOTAL_PAGE);
+        int lastVisiblePosition = savedInstanceState.getInt(BundleConfig.MOVIE_LIST_POSITION);
+        presenter.restoreState(parcelableList, totalPage, lastVisiblePosition);
+
+        int currentPage = savedInstanceState.getInt(BundleConfig.MOVIE_LIST_CURRENT_PAGE);
+        listener.setCurrent_page(currentPage);
     }
 
     @Override
@@ -109,6 +137,11 @@ public class MovieListActivity extends GeneralActivity implements IMovieView {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         intent.putExtra(BundleConfig.MOVIE, item);
         startActivity(intent);
+    }
+
+    @Override
+    public void setLastVisiblePosition(int position) {
+        movieGridView.smoothScrollToPosition(position);
     }
 
     @Override
