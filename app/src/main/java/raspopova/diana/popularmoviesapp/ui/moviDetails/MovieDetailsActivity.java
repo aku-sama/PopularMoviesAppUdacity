@@ -98,6 +98,8 @@ public class MovieDetailsActivity extends GeneralActivity implements IMovieDetai
         presenter.onAttacheView(this);
         if (movie != null)
             presenter.initialize(movie);
+        else
+            showError(getString(R.string.error_lost_movie));
     }
 
     private movieObject getFromPref() {

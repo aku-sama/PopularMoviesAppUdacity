@@ -7,6 +7,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -68,6 +69,9 @@ public class FavouritesActivity extends GeneralActivity {
 
         adapter = new FavouritesCursorAdapter(this, cursor);
         favouriteList.setAdapter(adapter);
+
+        if (cursor.getCount() > 0)
+            emptyFavouritesLayout.setVisibility(View.GONE);
     }
 
     @Override
