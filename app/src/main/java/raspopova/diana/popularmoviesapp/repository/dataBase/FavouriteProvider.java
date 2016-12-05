@@ -14,7 +14,7 @@ import net.simonvt.schematic.annotation.TableEndpoint;
 @ContentProvider(authority = FavouriteProvider.AUTHORITY, database = MovieDB.class)
 public final class FavouriteProvider {
 
-    public static final String AUTHORITY = "raspopova.diana.popularmoviesapp.reposytory.dataBase.FavouriteProvider";
+    public static final String AUTHORITY = "raspopova.diana.popularmoviesapp.repository.dataBase.FavouriteProvider";
 
     static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
